@@ -30,6 +30,15 @@ requirejs(['jquery', 'view/MapView', 'notify'], function ($, MapView) {
     var mapView = new MapView({
       parent: body
     });
+
+    setTimeout(function() {
+      $.notify("Click/tap the map to load satellite imagery at that location.", {
+        autoHide: false,
+        className: 'info',
+        showDuration: 1000,
+        hideDuration: 500
+      });
+    }, 1000);
   }
 
   (function () {

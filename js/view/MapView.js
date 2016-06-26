@@ -12,12 +12,12 @@ define(['mapboxgl'], function(mapboxgl) {
 
       function setupEvents() {
         map.on('mousemove', function (e) {
-          infoContainer.html(
-              // e.point is the x, y coordinates of the mousemove event relative
-              // to the top-left corner of the map
-              JSON.stringify(e.point) + '<br />' +
-                // e.lngLat is the longitude, latitude geographical position of the event
-              JSON.stringify(e.lngLat));
+          var html = e.lngLat.lat.toFixed(6) + ", " + e.lngLat.lng.toFixed(6);
+          infoContainer.html(html);
+        });
+
+        map.on('click', function(e) {
+
         });
       }
 

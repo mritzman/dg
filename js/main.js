@@ -16,7 +16,7 @@ requirejs(['jquery', 'view/MapView'], function ($, MapView) {
 
   function createApp() {
     var body = $("body");
-    new MapView({
+    var mapView = new MapView({
       parent: body
     });
   }

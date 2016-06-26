@@ -2,18 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
   <title>DG - Code Challenge</title>
 
-  <script src='https://api.mapbox.com/mapbox-gl-js/v0.20.1/mapbox-gl.js'></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v0.20.1/mapbox-gl.css' rel='stylesheet' />
+  <script src='bower_components/mapbox-gl-js/mapbox-gl.js'></script>
+  <link href='bower_components/mapbox-gl-js/mapbox-gl.css' rel='stylesheet' />
+  <link rel="stylesheet" type="text/css" href="bower_components/html5-boilerplate/dist/css/normalize.css" >
+  <link rel="stylesheet" type="text/css" href="bower_components/html5-boilerplate/dist/css/main.css" >
+  <link rel="stylesheet" type="text/css" href="css/app.css" >
 </head>
 <body>
-<div id='map' style='width: 400px; height: 300px;'></div>
+<div id='map'></div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoibXJpdHptYW4iLCJhIjoiY2lwdzRldWl3MHdiNmhjbnI1Y3liZ2hnOSJ9.9hNx4tlqZ2xJN-5mSgrkeQ';
   var map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v9'
+      style: 'mapbox://styles/mapbox/streets-v9',
+      center: [ -105.001811, 39.912784 ], // start at Digital Globe Headquarters
+      zoom: 16 // starting zoom
   });
 </script>
 </body>

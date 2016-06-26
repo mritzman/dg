@@ -7,11 +7,7 @@ After you have installed nodejs we'll want to install all the dev dependencies b
 
 NOTE that if you are running on a MAC insert "sudo" in front of every command.  On windows run the command prompt or power shell as an administrator. 
 
-Now run the following commands below to get the latest version of the gulp command line and bower command line.
-
-npm rm gulp-cli -g
-
-npm install gulp-cli -g
+Now run the following commands below to get the latest version of bower.
 
 npm rm bower -g
 

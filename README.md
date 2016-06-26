@@ -1,5 +1,5 @@
 # dg
-This repository is for a code challenege to do the following.
+This repository is for a code challenege that shows a map, when clicking on the map it will download a raster for the location you clicked on and display it.
 
 Requires node installed on your system, you can get it here: http://www.nodejs.org
 

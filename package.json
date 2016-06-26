@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/mritzman/dg",
   "devDependencies": {
+    "bower": "^1.7.9",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-concat-css": "^2.3.0",

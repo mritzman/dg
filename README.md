@@ -8,4 +8,5 @@ After you have installed nodejs we'll want to install all the dev dependencies b
 Now run the following commands below to get the latest version of the gulp command line.  
 
 npm rm gulp -g
+
 npm install gulp-cli -g

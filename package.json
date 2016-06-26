@@ -1,5 +1,5 @@
 {
-  "name": "dg-challenge",
+  "name": "dg",
   "version": "0.0.0",
   "description": "This repository is for a code challenege to do the following.",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mritzman/dg-challenge.git"
+    "url": "https://github.com/mritzman/dg.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mritzman/dg-challenge/issues"
+    "url": "https://github.com/mritzman/dg/issues"
   },
-  "homepage": "https://github.com/mritzman/dg-challenge",
+  "homepage": "https://github.com/mritzman/dg",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",

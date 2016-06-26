@@ -5,11 +5,13 @@
 requirejs.config({
   baseUrl: 'js',
   paths: {
+    'jquery': 'lib/jquery.min',
+    'mapboxgl': 'lib/mapbox-gl'
   },
   waitSeconds: 20
 });
 
-requirejs([], function () {
+requirejs(['jquery', 'mapboxgl'], function ($, mapboxgl) {
   "use strict";
 
   function createApp() {
@@ -25,12 +27,12 @@ requirejs([], function () {
     map.addControl(new mapboxgl.Navigation());
 
     map.on('mousemove', function (e) {
-      document.getElementById('info').innerHTML =
+      $("#info").html(
         // e.point is the x, y coordinates of the mousemove event relative
         // to the top-left corner of the map
           JSON.stringify(e.point) + '<br />' +
             // e.lngLat is the longitude, latitude geographical position of the event
-          JSON.stringify(e.lngLat);
+          JSON.stringify(e.lngLat));
     });
   }
 

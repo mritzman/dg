@@ -1,9 +1,9 @@
-define(['mapboxgl'], function(mapboxgl) {
+define(['mapboxgl', 'service/TileService'], function (mapboxgl, TileService) {
   "use strict";
 
-  var MapView = (function() {
+  var MapView = (function () {
 
-    var MapView = function(cfg) {
+    var MapView = function (cfg) {
 
       var parent;
       var container;
@@ -16,12 +16,19 @@ define(['mapboxgl'], function(mapboxgl) {
           infoContainer.html(html);
         });
 
-        map.on('click', function(e) {
-
+        map.on('click', function (e) {
+          // add some loader somewhere
+          TileService.loadTile(e.lngLat.lat, e.lngLat.lng).done(function (data, textStatus, jqXHR) {
+            window.console.log("Success: " + data);
+          }).fail(function (jqXHR, textStatus, errorThrown) {
+            window.console.log("Failed: " + textStatus);
+          }).always(function () {
+            window.console.log("Always");
+          });
         });
       }
 
-      (function() {
+      (function () {
         parent = $(cfg.parent);
         container = $('<div id="map"></div>');
         infoContainer = $('<div id="info"></div>');

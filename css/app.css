@@ -33,6 +33,6 @@ body {
   padding: 0.5rem 1rem;
   white-space: nowrap;
   text-overflow: ellipsis;
-  text-align: right;
+  text-align: center;
   font-style: italic;
 }

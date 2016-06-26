@@ -6,9 +6,15 @@ requirejs.config({
   baseUrl: 'js',
   paths: {
     'jquery': 'lib/jquery.min',
-    'mapboxgl': 'lib/mapbox-gl'
+    'mapboxgl': 'lib/mapbox-gl',
+    'notify': 'lib/notify.min'
   },
-  waitSeconds: 20
+  waitSeconds: 20,
+  shim: {
+    'notify' : {
+      deps : [ 'jquery' ]
+    }
+  }
 });
 
 requirejs(['jquery', 'view/MapView'], function ($, MapView) {

@@ -1,4 +1,4 @@
-define(['mapboxgl', 'service/TileService'], function (mapboxgl, TileService) {
+define(['mapboxgl', 'service/TileService', 'util/StringUtil', 'notify'], function (mapboxgl, TileService, StringUtil) {
   "use strict";
 
   var MapView = (function () {
@@ -17,13 +17,29 @@ define(['mapboxgl', 'service/TileService'], function (mapboxgl, TileService) {
         });
 
         map.on('click', function (e) {
+          var lat = e.lngLat.lat.toFixed(6);
+          var lng = e.lngLat.lng.toFixed(6);
+          /*
+          var sourceObj = new mapboxgl.ImageSource({
+            url: StringUtil.format(TileService.url, [e.lngLat.lat, e.lngLat.lng]),
+            coordinates: [
+              [-76.54335737228394, 39.18579907229748],
+              [-76.52803659439087, 39.1838364847587],
+              [-76.5295386314392, 39.17683392507606],
+              [-76.54520273208618, 39.17876344106642]
+            ]
+          });
+          map.addSource('some id', sourceObj); // add
+          */
+
+          $.notify("Loading tile at " + lat + ", " + lng, "info");
+
           // add some loader somewhere
           TileService.loadTile(e.lngLat.lat, e.lngLat.lng).done(function (data, textStatus, jqXHR) {
-            window.console.log("Success: " + data);
-          }).fail(function (jqXHR, textStatus, errorThrown) {
-            window.console.log("Failed: " + textStatus);
-          }).always(function () {
-            window.console.log("Always");
+            $.notify("Loading tile at " + lat + ", " + lng, "success");
+            // load the tile onto the map
+          }).fail(function () {
+            $.notify("Unable to load tile at " + lat + ", " + lng, "error");
           });
         });
       }

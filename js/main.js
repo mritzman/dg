@@ -11,16 +11,21 @@ requirejs.config({
   },
   waitSeconds: 20,
   shim: {
-    'notify' : {
-      deps : [ 'jquery' ]
+    'notify': {
+      deps: ['jquery']
     }
   }
 });
 
-requirejs(['jquery', 'view/MapView'], function ($, MapView) {
+requirejs(['jquery', 'view/MapView', 'notify'], function ($, MapView) {
   "use strict";
 
   function createApp() {
+    $.notify.defaults({
+      globalPosition: 'top left',
+      showDuration: 200
+    });
+
     var body = $("body");
     var mapView = new MapView({
       parent: body

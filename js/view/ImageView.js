@@ -47,7 +47,7 @@ define(['util/EventBus', 'jquery', 'notify'], function (Vent) {
           // anymore
           if(container.is(":visible")) {
             fitImgToWindow();
-            img.show();
+            img.fadeIn();
           }
         });
 

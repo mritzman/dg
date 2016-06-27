@@ -21,12 +21,9 @@ define(['mapboxgl', 'service/TileService', 'util/StringUtil', 'notify'], functio
           var lng = e.lngLat.lng.toFixed(6);
           $.notify("Loading tile at " + lat + ", " + lng + "...", "info");
 
-
-          // add some loader somewhere
           TileService.loadTile(e.lngLat.lat, e.lngLat.lng).done(function (data, textStatus, jqXHR) {
             $.notify("Downloaded tile at " + lat + ", " + lng + ", now adding tile to map", "success");
-            // load the tile onto the map
-
+            // add the new tile to the map
             /*
              var sourceObj = new mapboxgl.ImageSource({
              url: StringUtil.format(TileService.url, [e.lngLat.lat, e.lngLat.lng]),
@@ -42,6 +39,10 @@ define(['mapboxgl', 'service/TileService', 'util/StringUtil', 'notify'], functio
           }).fail(function () {
             $.notify("Unable to load tile at " + lat + ", " + lng, "error");
           });
+
+          var popup = window.open(TileService.getTileUrl(e.lngLat.lat, e.lngLat.lng), "mapChipWindow");
+          popup.blur();
+          $(window).focus();
         });
       }
 

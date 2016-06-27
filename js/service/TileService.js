@@ -5,13 +5,17 @@ define([ 'jquery', 'util/StringUtil' ], function($, StringUtil) {
 
     var TileService = function() {
 
-      this.url = "http://mapperdev.tomnod.com/chip_api/chip/lat/{0}/lng/{1}";
+      var url = "http://mapperdev.tomnod.com/chip_api/chip/lat/{0}/lng/{1}";
+
+      this.getTileUrl = function(lat, lng) {
+        return StringUtil.format(url, [lat, lng]);
+      };
 
       this.loadTile = function(lat, lng) {
         return $.ajax({
-          url: StringUtil.format(this.url, [lat, lng]),
-          crossDomain: true,
-          dataType: 'jsonp'
+          url: this.getTileUrl(lat, lng),
+//          dataType: 'jsonp',
+          crossDomain: true
         });
       };
 

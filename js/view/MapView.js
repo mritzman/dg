@@ -21,6 +21,7 @@ define(['mapboxgl', 'service/TileService', 'util/StringUtil', 'notify'], functio
           var lng = e.lngLat.lng.toFixed(6);
           $.notify("Loading tile at " + lat + ", " + lng + "...", "info");
 
+
           // add some loader somewhere
           TileService.loadTile(e.lngLat.lat, e.lngLat.lng).done(function (data, textStatus, jqXHR) {
             $.notify("Downloaded tile at " + lat + ", " + lng + ", now adding tile to map", "success");

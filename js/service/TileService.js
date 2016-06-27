@@ -10,7 +10,8 @@ define([ 'jquery', 'util/StringUtil' ], function($, StringUtil) {
       this.loadTile = function(lat, lng) {
         return $.ajax({
           url: StringUtil.format(this.url, [lat, lng]),
-          crossDomain: true
+          crossDomain: true,
+          dataType: 'jsonp'
         });
       };
 

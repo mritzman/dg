@@ -1,4 +1,4 @@
-define(['mapboxgl', 'service/TileService', 'util/EventBus', 'notify'], function (mapboxgl, TileService, Vent) {
+define(['mapboxgl', 'service/TileService', 'util/EventBus', 'jquery', 'notify'], function (mapboxgl, TileService, Vent, $) {
   "use strict";
 
   var MapView = (function () {
@@ -21,7 +21,13 @@ define(['mapboxgl', 'service/TileService', 'util/EventBus', 'notify'], function 
           var lng = e.lngLat.lng.toFixed(6);
           var imageUrl = TileService.getTileUrl(e.lngLat.lat, e.lngLat.lng);
 
-          $.notify("Loading imagery at " + lat + ", " + lng + "...", "info");
+          try {
+            $.notify("Loading imagery at " + lat + ", " + lng + "...", {
+              className: 'info'
+            });
+          } catch(err) {
+            // IE11 doesn't like the line above
+          }
 
           var sourceObj = new mapboxgl.ImageSource({
             url: imageUrl,
@@ -40,10 +46,14 @@ define(['mapboxgl', 'service/TileService', 'util/EventBus', 'notify'], function 
           map.addSource(lat + "_" + lng + 'Tile', sourceObj); // add
 
           TileService.loadTile(e.lngLat.lat, e.lngLat.lng).done(function (data, textStatus, jqXHR) {
-            $.notify("Downloaded imagery at " + lat + ", " + lng + ", now adding tile to map", "success");
+            $.notify("Downloaded imagery at " + lat + ", " + lng + ", now adding tile to map", {
+              className: "success"
+            });
             // add the new tile to the map
           }).fail(function () {
-            // $.notify("Unable to load imagery at " + lat + ", " + lng, "error");
+            // $.notify("Unable to load imagery at " + lat + ", " + lng, {
+            //   className: "error"
+            // });
           });
 
           Vent.trigger(Vent.MAP_CLICKED, imageUrl);

@@ -26,14 +26,14 @@ define(['util/EventBus'], function (Vent) {
 
       function setupEvents() {
         container.on("click", function() {
-          container.hide();
-          img.hide();
+          container.fadeOut();
+          img.fadeOut();
         });
 
         Vent.on(Vent.MAP_CLICKED, function(imageUrl) {
           console.log("Map clicked, loading image " + imageUrl);
-          img.attr("src", imageUrl + "?" + (new Date()).getTime());
-          container.show();
+          // img.attr("src", imageUrl + "?" + (new Date()).getTime());
+          container.fadeIn();
         });
 
         img.on("load", function() {
@@ -42,7 +42,7 @@ define(['util/EventBus'], function (Vent) {
           // anymore
           if(container.is(":visible")) {
             fitImgToWindow();
-            img.show();
+            img.fadeIn();
           }
         });
 

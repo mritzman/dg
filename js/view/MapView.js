@@ -1,4 +1,4 @@
-define(['mapboxgl', 'service/TileService', 'util/StringUtil', 'notify'], function (mapboxgl, TileService, StringUtil) {
+define(['mapboxgl', 'service/TileService', 'util/EventBus', 'notify'], function (mapboxgl, TileService, Vent) {
   "use strict";
 
   var MapView = (function () {
@@ -12,41 +12,41 @@ define(['mapboxgl', 'service/TileService', 'util/StringUtil', 'notify'], functio
 
       function setupEvents() {
         map.on('mousemove', function (e) {
-          var html = e.lngLat.lat.toFixed(6) + ", " + e.lngLat.lng.toFixed(6);
+          var html = "Latitude: " + e.lngLat.lat.toFixed(6) + ", Longitude:" + e.lngLat.lng.toFixed(6);
           infoContainer.html(html);
         });
 
         map.on('click', function (e) {
           var lat = e.lngLat.lat.toFixed(6);
           var lng = e.lngLat.lng.toFixed(6);
+          var imageUrl = TileService.getTileUrl(e.lngLat.lat, e.lngLat.lng);
+
           $.notify("Loading tile at " + lat + ", " + lng + "...", "info");
+
+          var sourceObj = new mapboxgl.ImageSource({
+            url: imageUrl,
+            coordinates: [
+              //top left: lng, lat
+              [-76.54335737228394, 39.18579907229748],
+              //top right lng, lat
+              [-76.52803659439087, 39.1838364847587],
+              //bottom right: lng, lat
+              [-76.5295386314392, 39.17683392507606],
+              //bottom left: lng, lat
+              [-76.54520273208618, 39.17876344106642]
+            ]
+          });
+
+          map.addSource(lat + "_" + lng + 'Tile', sourceObj); // add
 
           TileService.loadTile(e.lngLat.lat, e.lngLat.lng).done(function (data, textStatus, jqXHR) {
             $.notify("Downloaded tile at " + lat + ", " + lng + ", now adding tile to map", "success");
             // add the new tile to the map
-            /*
-             var sourceObj = new mapboxgl.ImageSource({
-             url: StringUtil.format(TileService.url, [e.lngLat.lat, e.lngLat.lng]),
-             coordinates: [
-             [-76.54335737228394, 39.18579907229748],
-             [-76.52803659439087, 39.1838364847587],
-             [-76.5295386314392, 39.17683392507606],
-             [-76.54520273208618, 39.17876344106642]
-             ]
-             });
-             map.addSource('some id', sourceObj); // add
-             */
           }).fail(function () {
-            $.notify("Unable to load tile at " + lat + ", " + lng, "error");
+            // $.notify("Unable to load tile at " + lat + ", " + lng, "error");
           });
 
-          var win = $(window);
-          var popup = window.open(TileService.getTileUrl(e.lngLat.lat, e.lngLat.lng), "mapChipWindow");
-
-          setTimeout(function() {
-            popup.blur();
-            $(win).focus();
-          }, 250);
+          Vent.trigger(Vent.MAP_CLICKED, imageUrl);
         });
       }
 
@@ -60,9 +60,9 @@ define(['mapboxgl', 'service/TileService', 'util/StringUtil', 'notify'], functio
         mapboxgl.accessToken = 'pk.eyJ1IjoibXJpdHptYW4iLCJhIjoiY2lwdzRldWl3MHdiNmhjbnI1Y3liZ2hnOSJ9.9hNx4tlqZ2xJN-5mSgrkeQ';
         map = new mapboxgl.Map({
           container: "map",
-          style: 'mapbox://styles/mapbox/streets-v9',
-          center: [-105.001811, 39.912784], // start at Digital Globe Headquarters
-          zoom: 16 // starting zoom
+          style: cfg.style,
+          center: cfg.center,
+          zoom: cfg.zoom
         });
 
         // Add zoom and rotation controls to the map.

@@ -6,18 +6,24 @@ requirejs.config({
   baseUrl: 'js',
   paths: {
     'jquery': 'lib/jquery.min',
+    'underscore': 'lib/underscore-min',
+    'backbone': 'lib/backbone-min',
     'mapboxgl': 'lib/mapbox-gl',
     'notify': 'lib/notify.min'
   },
   waitSeconds: 20,
   shim: {
+    'backbone': {
+      deps: ['underscore', 'jquery'],
+      exports: 'Backbone'
+    },
     'notify': {
       deps: ['jquery']
     }
   }
 });
 
-requirejs(['jquery', 'view/MapView', 'notify'], function ($, MapView) {
+requirejs(['jquery', 'view/MapView', 'view/ImageView', 'notify'], function ($, MapView, ImageView) {
   "use strict";
 
   function createApp() {
@@ -28,10 +34,17 @@ requirejs(['jquery', 'view/MapView', 'notify'], function ($, MapView) {
 
     var body = $("body");
     var mapView = new MapView({
+      parent: body,
+      style: 'mapbox://styles/mapbox/streets-v9',
+      zoom: 16, // starting zoom
+      center: [-105.001811, 39.912784] // start at Digital Globe Headquarters
+    });
+
+    var imageView = new ImageView({
       parent: body
     });
 
-    setTimeout(function() {
+    setTimeout(function () {
       $.notify("Click/tap the map to load satellite imagery at that location.", {
         autoHide: false,
         className: 'info',
@@ -42,6 +55,8 @@ requirejs(['jquery', 'view/MapView', 'notify'], function ($, MapView) {
   }
 
   (function () {
-    createApp();
+    $(document).ready(function () {
+      createApp();
+    });
   }());
 });

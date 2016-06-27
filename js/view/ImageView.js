@@ -1,4 +1,4 @@
-define(['util/EventBus'], function (Vent) {
+define(['util/EventBus', 'jquery', 'notify'], function (Vent) {
   "use strict";
 
   var ImageView = (function () {
@@ -24,10 +24,14 @@ define(['util/EventBus'], function (Vent) {
         img.attr("height", maxTileSize);
       }
 
+      function hideImageView() {
+        container.fadeOut();
+        img.fadeOut();
+      }
+
       function setupEvents() {
         container.on("click", function() {
-          container.fadeOut();
-          img.fadeOut();
+          hideImageView();
         });
 
         Vent.on(Vent.MAP_CLICKED, function(imageUrl) {
@@ -44,6 +48,14 @@ define(['util/EventBus'], function (Vent) {
             fitImgToWindow();
             img.fadeIn();
           }
+        });
+
+        img.on("error", function() {
+          hideImageView();
+
+          $.notify("Failed to loading imagery at url " + img.attr("src") + "...", {
+            className: 'error'
+          });
         });
 
         $(window).on("resize", function() {

@@ -37,7 +37,7 @@ define(['util/EventBus', 'jquery', 'notify'], function (Vent) {
 
         Vent.on(Vent.MAP_CLICKED, function(imageUrl) {
           console.log("Map clicked, loading image " + imageUrl);
-          // img.attr("src", imageUrl + "?" + (new Date()).getTime());
+          img.attr("src", imageUrl + "?" + (new Date()).getTime());
           container.fadeIn();
         });
 

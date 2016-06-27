@@ -2,19 +2,19 @@ div.notifyjs-bootstrap-base {
   font-weight: normal;
   font-style: italic;
   padding-left: 30px;
-  background-color: rgba(252,248,227, 0.6);
+  background-color: rgba(252,248,227, 0.75);
 }
 div.notifyjs-bootstrap-error {
-  background-color: rgba(242,222,222, 0.6);
+  background-color: rgba(242,222,222, 0.75);
 }
 div.notifyjs-bootstrap-success {
-  background-color: rgba(223,240,216, 0.6);
+  background-color: rgba(223,240,216, 0.75);
 }
 div.notifyjs-bootstrap-info {
-  background-color: rgba(217,237,247, 0.6);
+  background-color: rgba(217,237,247, 0.75);
 }
 div.notifyjs-bootstrap-warn {
-  background-color: rgba(252,248,227, 0.6);
+  background-color: rgba(252,248,227, 0.75);
 }
 
 * {

@@ -40,9 +40,13 @@ define(['mapboxgl', 'service/TileService', 'util/StringUtil', 'notify'], functio
             $.notify("Unable to load tile at " + lat + ", " + lng, "error");
           });
 
+          var win = $(window);
           var popup = window.open(TileService.getTileUrl(e.lngLat.lat, e.lngLat.lng), "mapChipWindow");
-          popup.blur();
-          $(window).focus();
+
+          setTimeout(function() {
+            popup.blur();
+            $(win).focus();
+          }, 250);
         });
       }
 

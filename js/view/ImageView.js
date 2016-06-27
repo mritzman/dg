@@ -25,8 +25,9 @@ define(['util/EventBus', 'jquery', 'notify'], function (Vent) {
       }
 
       function hideImageView() {
-        container.fadeOut();
-        img.fadeOut();
+        container.fadeOut(400, function() {
+          img.hide();
+        });
       }
 
       function setupEvents() {
@@ -46,14 +47,14 @@ define(['util/EventBus', 'jquery', 'notify'], function (Vent) {
           // anymore
           if(container.is(":visible")) {
             fitImgToWindow();
-            img.fadeIn();
+            img.show();
           }
         });
 
         img.on("error", function() {
           hideImageView();
 
-          $.notify("Failed to loading imagery at url " + img.attr("src") + "...", {
+          $.notify("Failed to loading imagery at " + img.attr("src") + "...", {
             className: 'error'
           });
         });

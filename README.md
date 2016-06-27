@@ -1,5 +1,5 @@
 # dg
-This repository is for a code challenege that shows a map, when clicking on the map it will download a raster for the location you clicked on and display it.
+This repository is for a code challenge that shows a slippy map that a user can zoom, pan and click on.  When clicking on the map it will download a imagery centered at the location you clicked on and display it.
 
 Requires node installed on your system, you can get it here: http://www.nodejs.org
 

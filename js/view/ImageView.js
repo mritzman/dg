@@ -37,6 +37,9 @@ define(['util/EventBus'], function (Vent) {
         });
 
         img.on("load", function() {
+          // if container has been hidden by a click then
+          // we don't want to show the img we tried to load
+          // anymore
           if(container.is(":visible")) {
             fitImgToWindow();
             img.show();

@@ -11,18 +11,6 @@ body {
   z-index: 0;
 }
 
-#form {
-  position: absolute;
-  background-color: rgba(255, 255, 255, 0.4);
-  height: 1rem;
-  min-width: 5rem;
-  width: 50%;
-  max-width: 10rem;
-  top: 1rem;
-  left: 1rem;
-  padding: 0.5rem 1rem;
-}
-
 #info {
   position: absolute;
   height: 1rem;

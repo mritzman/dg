@@ -23,7 +23,7 @@ requirejs.config({
   }
 });
 
-requirejs(['jquery', 'view/MapView', 'view/ImageView', 'notify'], function ($, MapView, ImageView) {
+requirejs(['jquery', 'view/MapView', 'view/ImageView', 'util/EventBus', 'notify'], function ($, MapView, ImageView, Vent) {
   "use strict";
 
   function createApp() {
@@ -36,23 +36,25 @@ requirejs(['jquery', 'view/MapView', 'view/ImageView', 'notify'], function ($, M
     var mapView = new MapView({
       parent: body,
       style: 'mapbox://styles/mapbox/streets-v9',
-//      style: 'mapbox://styles/mapbox/satellite-v9',
+      // style: 'mapbox://styles/mapbox/satellite-v9',
       zoom: 16, // starting zoom
       center: [-105.001811, 39.912784] // start at Digital Globe Headquarters
     });
 
-    var imageView = new ImageView({
-      parent: body
-    });
+    Vent.on(Vent.MAP_LOADED, function() {
+      body.find("#loadingContainer").fadeOut();
 
-    setTimeout(function () {
-      $.notify("Click/tap the map to load satellite imagery at that location.", {
+      $.notify("Click/tap the map to load satellite imagery", {
         autoHide: false,
         className: 'info',
         showDuration: 2000,
         hideDuration: 500
       });
-    }, 1000);
+
+      var imageView = new ImageView({
+        parent: body
+      });
+    });
   }
 
   (function () {

@@ -25,20 +25,23 @@ body {
   font-style: italic;
 }
 
-#imageContainer {
+#loadingContainer, #imageContainer {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: none;
   text-align: center;
   z-index: 2000;
   background: rgba(0, 0, 0, 0.4) url('../assets/spinner.gif') center center no-repeat;
   cursor: pointer;
 }
 
-#imageContainer .verticalMiddleHelper {
+#imageContainer {
+  display: none;
+}
+
+#loadingContainer .verticalMiddleHelper, #imageContainer .verticalMiddleHelper {
   display: inline-block;
   height: 100%;
   vertical-align: middle;

@@ -41,7 +41,7 @@ define(['mapboxgl', 'service/TileService', 'util/EventBus', 'jquery', 'notify'],
             "type": "raster"
           });
         } catch(err) {
-          console.error(err);
+          // Throwing MapView.js:44 TypeError: this.sources[e].reload is not a function
         }
       }
 
@@ -59,6 +59,10 @@ define(['mapboxgl', 'service/TileService', 'util/EventBus', 'jquery', 'notify'],
       }
 
       function setupEvents() {
+
+        map.on('load', function() {
+          Vent.trigger(Vent.MAP_LOADED);
+        });
 
         map.on('mousemove', function (e) {
           var html = "Latitude: " + e.lngLat.lat.toFixed(6) + ", Longitude:" + e.lngLat.lng.toFixed(6);
@@ -80,6 +84,7 @@ define(['mapboxgl', 'service/TileService', 'util/EventBus', 'jquery', 'notify'],
 
           addImageToMap(e.lngLat.lat, e.lngLat.lng, imageUrl);
           // downloadTile(e.lngLat.lat, e.lngLat.lng);
+
           Vent.trigger(Vent.MAP_CLICKED, imageUrl);
         });
 

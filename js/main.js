@@ -35,8 +35,8 @@ requirejs(['jquery', 'view/MapView', 'view/ImageView', 'util/EventBus', 'notify'
     var body = $("body");
     var mapView = new MapView({
       parent: body,
-      style: 'mapbox://styles/mapbox/streets-v9',
-      // style: 'mapbox://styles/mapbox/satellite-v9',
+      // style: 'mapbox://styles/mapbox/streets-v9',
+      style: 'mapbox://styles/mapbox/satellite-v9',
       zoom: 16, // starting zoom
       center: [-105.001811, 39.912784] // start at Digital Globe Headquarters
     });
@@ -44,7 +44,7 @@ requirejs(['jquery', 'view/MapView', 'view/ImageView', 'util/EventBus', 'notify'
     Vent.on(Vent.MAP_LOADED, function() {
       body.find("#loadingContainer").fadeOut();
 
-      $.notify("Click/tap the map to load satellite imagery", {
+      $.notify("Click/tap map to load satellite imagery", {
         autoHide: false,
         className: 'info',
         showDuration: 2000,

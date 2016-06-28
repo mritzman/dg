@@ -36,7 +36,7 @@ define(['util/EventBus', 'jquery', 'notify'], function (Vent) {
         });
 
         Vent.on(Vent.MAP_CLICKED, function(imageUrl) {
-          console.log("Map clicked, loading image " + imageUrl);
+          console.log("Map clicked, loading imagery from " + imageUrl);
           img.attr("src", imageUrl + "?" + (new Date()).getTime());
           container.fadeIn();
         });
@@ -54,7 +54,7 @@ define(['util/EventBus', 'jquery', 'notify'], function (Vent) {
         img.on("error", function() {
           hideImageView();
 
-          $.notify("Failed to loading imagery at " + img.attr("src") + "...", {
+          $.notify("Failed loading imagery at " + img.attr("src") + "...", {
             className: 'error'
           });
         });

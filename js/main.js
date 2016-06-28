@@ -36,6 +36,7 @@ requirejs(['jquery', 'view/MapView', 'view/ImageView', 'notify'], function ($, M
     var mapView = new MapView({
       parent: body,
       style: 'mapbox://styles/mapbox/streets-v9',
+//      style: 'mapbox://styles/mapbox/satellite-v9',
       zoom: 16, // starting zoom
       center: [-105.001811, 39.912784] // start at Digital Globe Headquarters
     });
@@ -48,7 +49,7 @@ requirejs(['jquery', 'view/MapView', 'view/ImageView', 'notify'], function ($, M
       $.notify("Click/tap the map to load satellite imagery at that location.", {
         autoHide: false,
         className: 'info',
-        showDuration: 1000,
+        showDuration: 2000,
         hideDuration: 500
       });
     }, 1000);

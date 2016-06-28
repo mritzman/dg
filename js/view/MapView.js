@@ -10,7 +10,56 @@ define(['mapboxgl', 'service/TileService', 'util/EventBus', 'jquery', 'notify'],
       var infoContainer;
       var map;
 
+      function addImageToMap(lat, lng, url) {
+        var id = lat + "_" + lng;
+        var srcId = id + "_Source";
+        var overlayId = id+ "_Overlay";
+        var halfChipSize = 0.00199;
+
+        // lng west is less, east is more
+        // lat north is more, south is less
+        // var sourceObj = new mapboxgl.ImageSource();
+        map.addSource(srcId, new mapboxgl.ImageSource({
+          url: url,
+          type: 'image',
+          coordinates: [
+            //top left: lng, lat
+            [lng - halfChipSize, lat + halfChipSize],
+            //top right lng, lat
+            [lng + halfChipSize, lat + halfChipSize],
+            //bottom right: lng, lat
+            [lng + halfChipSize, lat - halfChipSize],
+            //bottom left: lng, lat
+            [lng - halfChipSize, lat - halfChipSize]
+          ]
+        }));
+
+        try {
+          map.addLayer({
+            "id": overlayId,
+            "source": srcId,
+            "type": "raster"
+          });
+        } catch(err) {
+          console.error(err);
+        }
+      }
+
+      function downloadTile(lat, lng) {
+        TileService.loadTile(lat, lng).done(function (data, textStatus, jqXHR) {
+          $.notify("Downloaded imagery at " + lat + ", " + lng + ", now adding tile to map", {
+            className: "success"
+          });
+          // add the new tile to the map
+        }).fail(function () {
+          $.notify("Unable to load imagery at " + lat + ", " + lng, {
+            className: "error"
+          });
+        });
+      }
+
       function setupEvents() {
+
         map.on('mousemove', function (e) {
           var html = "Latitude: " + e.lngLat.lat.toFixed(6) + ", Longitude:" + e.lngLat.lng.toFixed(6);
           infoContainer.html(html);
@@ -25,39 +74,15 @@ define(['mapboxgl', 'service/TileService', 'util/EventBus', 'jquery', 'notify'],
             $.notify("Loading imagery at " + lat + ", " + lng + "...", {
               className: 'info'
             });
-          } catch(err) {
+          } catch (err) {
             // IE11 doesn't like the line above
           }
 
-          var sourceObj = new mapboxgl.ImageSource({
-            url: imageUrl,
-            coordinates: [
-              //top left: lng, lat
-              [-76.54335737228394, 39.18579907229748],
-              //top right lng, lat
-              [-76.52803659439087, 39.1838364847587],
-              //bottom right: lng, lat
-              [-76.5295386314392, 39.17683392507606],
-              //bottom left: lng, lat
-              [-76.54520273208618, 39.17876344106642]
-            ]
-          });
-
-          map.addSource(lat + "_" + lng + 'Tile', sourceObj); // add
-
-          TileService.loadTile(e.lngLat.lat, e.lngLat.lng).done(function (data, textStatus, jqXHR) {
-            $.notify("Downloaded imagery at " + lat + ", " + lng + ", now adding tile to map", {
-              className: "success"
-            });
-            // add the new tile to the map
-          }).fail(function () {
-            // $.notify("Unable to load imagery at " + lat + ", " + lng, {
-            //   className: "error"
-            // });
-          });
-
+          addImageToMap(e.lngLat.lat, e.lngLat.lng, imageUrl);
+          // downloadTile(e.lngLat.lat, e.lngLat.lng);
           Vent.trigger(Vent.MAP_CLICKED, imageUrl);
         });
+
       }
 
       (function () {

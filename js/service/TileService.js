@@ -14,13 +14,7 @@ define([ 'jquery', 'util/StringUtil' ], function($, StringUtil) {
       this.loadTile = function(lat, lng) {
         return $.ajax({
           url: this.getTileUrl(lat, lng),
-//          dataType: 'jsonp',
           crossDomain: true,
-          headers: {
-           // "Accept" : "application/json; charset=utf-8",
-           // "Content-Type": "application/javascript; charset=utf-8",
-            "Access-Control-Allow-Origin" : "*"
-          },
         });
       };
 

@@ -35,8 +35,8 @@ requirejs(['jquery', 'view/MapView', 'view/ImageView', 'util/EventBus', 'notify'
     var body = $("body");
     var mapView = new MapView({
       parent: body,
-      // style: 'mapbox://styles/mapbox/streets-v9',
-      style: 'mapbox://styles/mapbox/satellite-v9',
+      style: 'mapbox://styles/mapbox/streets-v9',
+      // style: 'mapbox://styles/mapbox/satellite-v9',
       zoom: 16, // starting zoom
       center: [-105.001811, 39.912784] // start at Digital Globe Headquarters
     });
